@@ -15,5 +15,8 @@
     "mocha": "^5.0.0",
     "ts-node": "^4.1.0",
     "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "modernizr": "^3.5.0"
   }
 }
