@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "domtest": "mocha -r jsdom-global/register -r ts-node/register src/**/*.spec.ts"
+    "watch:test": "mocha -r ts-node/register --watch src/**/*.spec.ts --watch-extensions tsx,ts"
   },
   "author": "",
   "license": "ISC",
