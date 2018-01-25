@@ -2,19 +2,16 @@ import "mocha";
 import {expect} from "chai";
 import * as sinon from "sinon";
 import * as Modernizr from "modernizr";
-// import 'jsdom-global/register'; // this does not work
 import {MyClass} from "./myclass";
 require("jsdom-global")(); // this should come after Modernizr!!!!
 
-describe("hooks", (done) => {
+describe("hooks", () => {
     before(() => {
-        console.log("setting up jsdom");
         this.jsdom = require("jsdom-global")();
     });
 
     after(() => {
         this.jsdom();
-        console.log("jsdom cleaned");
     });
 
     it("normal test", () => {
