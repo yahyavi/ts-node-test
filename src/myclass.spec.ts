@@ -1,11 +1,15 @@
 import "mocha";
 import {expect} from "chai";
+import * as chai from "chai";
+import * as sinonChai from "sinon-chai";
 import * as sinon from "sinon";
 import * as Modernizr from "modernizr";
 import {MyClass} from "./myclass";
 require("jsdom-global")(); // this should come after Modernizr!!!!
 
-describe("hooks", () => {
+chai.use(sinonChai);
+
+describe("a series of sample tests", () => {
     before(() => {
         this.jsdom = require("jsdom-global")();
     });
