@@ -21,10 +21,10 @@ describe("a series of sample tests", () => {
         });
     });
 
-    it("await test", async () => {
+    it("await test", () => {
         const instance = new MyClass();
         // const result = await instance.awaitSum(5, 2); // result will be 7
-        return expect(instance.awaitSum(5, 2)).to.eventually.equal(70);
+        return expect(instance.awaitSum(5, 2)).to.eventually.equal(7);
     });
 
     it("normal test", () => {
