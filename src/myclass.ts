@@ -12,4 +12,14 @@ export class MyClass {
         }
         return false;
     }
+
+    public asyncSum(a: number, b: number, c) {
+        setTimeout(() => {
+            c(a + b);
+        }, 100);
+    }
+
+    public async awaitSum(a: number, b: number): Promise {
+        return new Promise((res, rej) => {res(a + b);});
+    }
 }
