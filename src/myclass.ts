@@ -16,7 +16,7 @@ export class MyClass {
     public asyncSum(a: number, b: number, c) {
         setTimeout(() => {
             c(a + b);
-        }, 100);
+        }, 2100);
     }
 
     public async awaitSum(a: number, b: number): Promise {
