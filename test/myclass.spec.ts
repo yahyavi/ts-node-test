@@ -6,7 +6,7 @@ require("jsdom-global")(); // this should come after Modernizr import!!!!
 
 // don't use lambda functions, so we can access mocha's internal variables like this.timeout
 describe("a series of sample tests", function() {
-    beforeEach(function() {
+    beforeEach("before each", function() {
         this.fakeClass = this.sandbox.createStubInstance(MyClass);
         this.clock = this.sandbox.useFakeTimers();
     });
@@ -15,13 +15,11 @@ describe("a series of sample tests", function() {
         this.sandbox.restore();
     });
 
-    before(function() {
+    before("before all", function() {
         this.sandbox = sinon.createSandbox();
-        console.log("start!");
     });
 
-    after(function() {
-        console.log("done :)");
+    after("after all", function() {
     });
 
     it("testing stubs", function() {
@@ -34,13 +32,16 @@ describe("a series of sample tests", function() {
     // to override the internal 2s timer
     this.timeout(5000);
 
+    // for showing slow tests in the report
+    this.slow(1);
+
     it("async test", function(done) {
         const instance = new MyClass();
         const t1 = process.hrtime();
         instance.asyncSum(2, 2, function(r) {
-            expect(r).to.equal(4);
+            expect(r, "timer's result").to.equal(4);
             const t2 = process.hrtime();
-            console.log(t2[0] * 1e9 + t2[1] - t1[0] * 1e9 - t1[1]);
+            // console.log(t2[0] * 1e9 + t2[1] - t1[0] * 1e9 - t1[1]);
             done();
         });
         this.clock.next();
@@ -48,6 +49,7 @@ describe("a series of sample tests", function() {
 
     it("await test", function() {
         const instance = new MyClass();
+        // note: when working with promises, we should "return" the test statement
         return expect(instance.awaitSum(5, 2)).to.eventually.equal(7);
     });
 
@@ -58,12 +60,11 @@ describe("a series of sample tests", function() {
     });
 
     it("normal test", function() {
-        // const stub = this.sandbox.createStubInstance(MyClass);
         const instance = new MyClass();
         const mySpy = this.sandbox.spy(instance, "sum");
         expect(instance.sum(1, 2)).to.equal(3);
         expect(mySpy).to.have.been.calledWith(1, 2);
-        expect(instance.sum).to.have.been.callCount(1);
+        expect(instance.sum).to.have.callCount(1);
     });
 
     it("modernizer test", function() {

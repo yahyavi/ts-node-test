@@ -1,0 +1,13 @@
+libraries:
+==========
+. framework - test runner: https://mochajs.org/
+. spies, stubs, mocks: http://sinonjs.org/releases/v4.2.0/
+. assertions - general: http://chaijs.com/api/bdd/
+. assertions - stubs: http://chaijs.com/plugins/sinon-chai/
+. assertions - promises: https://github.com/domenic/chai-as-promised
+
+resources:
+==========
+. https://semaphoreci.com/community/tutorials/best-practices-for-spies-stubs-and-mocks-in-sinon-js
+. https://ole.michelsen.dk/blog/writing-library-with-typescript-test-coverage.html
+. https://github.com/zinserjan/mocha-webpack/blob/master/docs/guides/code-coverage.md

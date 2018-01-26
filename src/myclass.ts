@@ -2,7 +2,7 @@ import * as Modernizr from "modernizr";
 
 export class MyClass {
     public sum(a: number, b: number) {
-        console.log(atob("abc"));
+        // console.log(atob("abc"));
         return a + b;
     }
 
