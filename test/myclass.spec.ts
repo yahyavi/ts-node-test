@@ -7,19 +7,26 @@ require("jsdom-global")(); // this should come after Modernizr import!!!!
 // don't use lambda functions, so we can access mocha's internal variables like this.timeout
 describe("a series of sample tests", function() {
     beforeEach(function() {
-        this.sinon = sinon.sandbox.create();
+        this.fakeClass = this.sandbox.createStubInstance(MyClass);
+        this.clock = this.sandbox.useFakeTimers();
     });
 
     afterEach(function() {
-        this.sinon.restore();
+        this.sandbox.restore();
     });
 
     before(function() {
+        this.sandbox = sinon.createSandbox();
         console.log("start!");
     });
 
     after(function() {
         console.log("done :)");
+    });
+
+    it("testing stubs", function() {
+        this.fakeClass.log.returns("fake");
+        expect(this.fakeClass.log()).to.equal("fake");
     });
 
     it("a pending test");
@@ -29,10 +36,14 @@ describe("a series of sample tests", function() {
 
     it("async test", function(done) {
         const instance = new MyClass();
+        const t1 = process.hrtime();
         instance.asyncSum(2, 2, function(r) {
             expect(r).to.equal(4);
+            const t2 = process.hrtime();
+            console.log(t2[0] * 1e9 + t2[1] - t1[0] * 1e9 - t1[1]);
             done();
         });
+        this.clock.next();
     });
 
     it("await test", function() {
@@ -47,9 +58,9 @@ describe("a series of sample tests", function() {
     });
 
     it("normal test", function() {
-        const stub = sinon.createStubInstance(MyClass);
+        // const stub = this.sandbox.createStubInstance(MyClass);
         const instance = new MyClass();
-        const mySpy = sinon.spy(instance, "sum");
+        const mySpy = this.sandbox.spy(instance, "sum");
         expect(instance.sum(1, 2)).to.equal(3);
         expect(mySpy).to.have.been.calledWith(1, 2);
         expect(instance.sum).to.have.been.callCount(1);
